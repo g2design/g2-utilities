@@ -1,0 +1,16 @@
+{
+    "name": "g2design/g2-utilities",
+    "description": "Modules that can be used with the g2app framework",
+    "type": "library",
+ 
+    "minimum-stability": "dev",
+    "require": {
+		  "g2design/g2app": "dev-master",
+        "phpoffice/phpexcel": "^1.8"
+	},
+	"autoload": {
+		"files": [
+			"init.php"
+		]
+	}
+}
