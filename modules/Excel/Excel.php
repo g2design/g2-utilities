@@ -18,7 +18,7 @@ class Excel extends \G2Design\ClassStructs\Module {
 	 * 
 	 */
 	public static function download($data, $title = "", $filename = "") {
-		$instance = G2Design\G2App::get_module_instance(__FILE__); /* @var $instance Excel */
+		$instance = G2Design\G2App::__module_instance(__FILE__); /* @var $instance Excel */
 		$instance->session()->set('Excel_Download', $data);
 		$instance->session()->set('Excel_Title', $title);
 		$instance->session()->set('Excel_Filename', $filename);
