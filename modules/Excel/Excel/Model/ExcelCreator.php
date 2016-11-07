@@ -15,10 +15,20 @@ class ExcelCreator extends \G2Design\G2App\Model {
 
 	function set_data($data, $starting_row = 1, $starting_col = 1) {
 		//Convert to matrix with headers in spererate row
-		$headers = array_keys(current($data));
+
+		$first_row = current($data);
+
+		if (is_object($first_row)) {
+			$first_row = (array) $first_row;
+		}
+
+		$headers = array_keys(current($first_row));
 		$pdata = [$headers];
 
 		foreach ($data as $row) {
+			if (is_object($row)) {
+				$row = (array) $row;
+			}
 			$pdata[] = array_values($row);
 		}
 
@@ -42,11 +52,12 @@ class ExcelCreator extends \G2Design\G2App\Model {
 	}
 
 	public function download() {
-		
-		foreach($this->excel->getActiveSheet()->getColumnDimensions() as $column) $column->setAutoSize (true);
+
+		foreach ($this->excel->getActiveSheet()->getColumnDimensions() as $column)
+			$column->setAutoSize(true);
 		// Redirect output to a client’s web browser (Excel2007)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment;filename="'.$this->filename.'"');
+		header('Content-Disposition: attachment;filename="' . $this->filename . '"');
 		header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');
