@@ -6,7 +6,8 @@
     "minimum-stability": "dev",
     "require": {
 		  "g2design/g2app": "dev-master",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8",
+        "phpoffice/phpspreadsheet": "dev-master"
 	},
 	"autoload": {
 		"files": [
