@@ -8,7 +8,8 @@ class ExcelCreator extends \G2Design\G2App\Model {
 
 	public function __construct($data) {
 		$this->data = $data;
-		$this->excel = new \PHPExcel();
+//		$this->excel = new \PHPExcel();
+		$this->excel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 		$this->excel->setActiveSheetIndex(0);
 		$this->set_data($data);
 	}
@@ -44,6 +45,10 @@ class ExcelCreator extends \G2Design\G2App\Model {
 	public function download() {
 		
 		foreach($this->excel->getActiveSheet()->getColumnDimensions() as $column) $column->setAutoSize (true);
+		foreach (range('A', 'AZ') as $columnID) {
+			$this->excel->getActiveSheet()->getColumnDimension($columnID)
+					->setAutoSize(true);
+		}
 		// Redirect output to a client’s web browser (Excel2007)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment;filename="'.$this->filename.'"');
@@ -57,7 +62,7 @@ class ExcelCreator extends \G2Design\G2App\Model {
 		header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 		header('Pragma: public'); // HTTP/1.0
 
-		$objWriter = \PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+		$objWriter =  \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($this->excel, 'Excel2007');
 		$objWriter->save('php://output');
 		exit;
 	}
