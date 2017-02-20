@@ -45,8 +45,8 @@ class ExcelCreator extends \G2Design\G2App\Model {
 	public function download() {
 		
 		foreach($this->excel->getActiveSheet()->getColumnDimensions() as $column) $column->setAutoSize (true);
-		foreach (range('A', 'AZ') as $columnID) {
-			$this->excel->getActiveSheet()->getColumnDimension($columnID)
+		foreach (range(1, 50) as $columnID) {
+			$this->excel->getActiveSheet()->getColumnDimensionByColumn($columnID)
 					->setAutoSize(true);
 		}
 		// Redirect output to a client’s web browser (Excel2007)
